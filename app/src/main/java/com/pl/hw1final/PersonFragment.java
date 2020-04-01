@@ -72,5 +72,6 @@ public class PersonFragment extends Fragment {
     public interface onListFragmentInteraction {
         void onListFragmentClickInteraction(Person person, int position);
         void onListFragmentLongClickInteraction(int position);
+        void onImageButtonClickInteraction(int position);
     }
 }

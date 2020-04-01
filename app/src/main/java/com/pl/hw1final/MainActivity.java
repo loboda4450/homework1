@@ -1,6 +1,7 @@
 package com.pl.hw1final;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,9 +14,10 @@ import com.pl.hw1final.persons.PersonListContent;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity implements PersonFragment.onListFragmentInteraction {
+public class MainActivity extends AppCompatActivity implements PersonFragment.onListFragmentInteraction, CallDialog.OnCallDialogInteractionListener, DeleteDialog.OnDeleteDialogInteractionListener {
     public static final String taskExtra = "taskExtra";
     private int currentItemPosition = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,11 +42,10 @@ public class MainActivity extends AppCompatActivity implements PersonFragment.on
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
-            ((PersonFragment) Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.personFragment))).notifyDataChange();
+            ((PersonFragment) getSupportFragmentManager().findFragmentById(R.id.personFragment)).notifyDataChange();
 
         }
     }
-
 
     private void startPersonInfoActivity(PersonListContent.Person person, int position){
         Intent intent = new Intent(this, PersonInfoActivity.class);
@@ -64,8 +65,40 @@ public class MainActivity extends AppCompatActivity implements PersonFragment.on
         showCallDialog();
     }
 
+    @Override
+    public void onImageButtonClickInteraction(int position){
+        Toast.makeText(this, "Delete works .-.", Toast.LENGTH_SHORT).show();
+        showDeleteDialog();
+    }
+
     private void showCallDialog(){
         CallDialog.newInstance().show(getSupportFragmentManager(), getString(R.string.call_dialog_tag));
     }
 
+    private void showDeleteDialog(){
+        DeleteDialog.newInstance().show(getSupportFragmentManager(), getString(R.string.delete_dialog_tag));
+    }
+
+    @Override
+    public void OnDialogPositiveClick(CallDialog dialog) {
+
+    }
+
+    @Override
+    public void OnDialogNegativeClick(CallDialog dialog) {
+
+    }
+
+    @Override
+    public void OnDialogPositiveClick(DeleteDialog dialog) {
+        if (currentItemPosition != -1 && currentItemPosition < PersonListContent.ITEMS.size()) {
+            PersonListContent.removeItem(currentItemPosition);
+            ((PersonFragment) getSupportFragmentManager().findFragmentById(R.id.personFragment)).notifyDataChange();
+        }
+    }
+
+    @Override
+    public void OnDialogNegativeClick(DeleteDialog dialog) {
+
+    }
 }

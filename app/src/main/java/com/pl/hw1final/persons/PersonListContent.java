@@ -25,6 +25,12 @@ public class PersonListContent {
         ITEM_MAP.put(item.id, item);
     }
 
+    public static void removeItem(int position){
+        String itemId = ITEMS.get(position).id;
+        ITEMS.remove(position);
+        ITEM_MAP.remove(itemId);
+    }
+
     private static Person createPerson(int position) {
         return new Person(String.valueOf(position),
                 "Adam",

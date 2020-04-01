@@ -7,9 +7,13 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.pl.hw1final.PersonFragment.onListFragmentInteraction;
 import com.pl.hw1final.persons.PersonListContent.Person;
 
@@ -113,6 +117,13 @@ public class MyPersonRecyclerViewAdapter extends RecyclerView.Adapter<MyPersonRe
             public boolean onLongClick(View v) {
                 mListener.onListFragmentLongClickInteraction(position);
                 return false;
+            }
+        });
+
+        holder.mView.findViewById(R.id.delete_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onImageButtonClickInteraction(position);
             }
         });
     }

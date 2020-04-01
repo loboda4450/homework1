@@ -13,6 +13,7 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.pl.hw1final.persons.PersonListContent;
 
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class AddPerson extends AppCompatActivity {
@@ -56,19 +57,19 @@ public class AddPerson extends AppCompatActivity {
             if (personBirthday.isEmpty()) {
                 personBirthday = getString(R.string.default_birthday);
             }
-            if (Pattern.matches("[a-zA-Z]+", personPhone) || personPhone.length() != 9) {
-                Snackbar.make(view, "Phone number include letters or is not 9 number long", BaseTransientBottomBar.LENGTH_SHORT);
-            } else {
-                PersonListContent.addItem(new PersonListContent.Person("Task" + PersonListContent.ITEMS.size() + 1,
-                        personName,
-                        personSurname,
-                        personPhone,
-                        personBirthday,
-                        selectedImage));
-            }
+//            if (Pattern.matches("[a-zA-Z]+", personPhone) || personPhone.length() != 9) {
+//                Snackbar.make(view, "Phone number include letters or is not 9 number long", BaseTransientBottomBar.LENGTH_SHORT);
+//            } else {
+            PersonListContent.addItem(new PersonListContent.Person("Task" + PersonListContent.ITEMS.size() + 1,
+                    personName,
+                    personSurname,
+                    personPhone,
+                    personBirthday,
+                    selectedImage));
+//            }
         }
 
-        ((PersonFragment) getSupportFragmentManager().findFragmentById(R.id.personFragment)).notifyDataChange();
+        ((PersonFragment) Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.personFragment))).notifyDataChange();
         personNameEditText.setText("");
         personSurnameEditText.setText("");
         personPhoneEditText.setText("");

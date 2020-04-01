@@ -29,7 +29,6 @@ public class CallDialog extends DialogFragment {
         mListener = (OnCallDialogInteractionListener) context;
     }
 
-
     @NotNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState){
@@ -52,7 +51,7 @@ public class CallDialog extends DialogFragment {
     }
 
     public interface OnCallDialogInteractionListener{
-        void OnDialogPositiveClick(DialogFragment dialog);
-        void OnDialogNegativeClick(DialogFragment dialog);
+        void OnDialogPositiveClick(CallDialog dialog);
+        void OnDialogNegativeClick(CallDialog dialog);
     }
 }
