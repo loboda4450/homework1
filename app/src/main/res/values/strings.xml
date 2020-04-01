@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">hw1final</string>
+    <string name="add_person">ADD</string>
+    <string name="person_surname">surname</string>
+    <string name="person_name">name</string>
+    <string name="person_birthday">birthday</string>
+    <string name="person_phone">phone</string>
+    <string name="default_name">Adam</string>
+    <string name="default_surname">Nowak</string>
+    <string name="default_phone">123456789</string>
+    <string name="default_birthday">01/01/1970</string>
+
+    <string-array name="images">
+        <item>drawable 1</item>
+        <item>drawable 2</item>
+        <item>drawable 3</item>
+        <item>drawable 4</item>
+        <item>drawable 5</item>
+        <item>drawable 6</item>
+        <item>drawable 7</item>
+        <item>drawable 8</item>
+        <item>drawable 9</item>
+        <item>drawable 10</item>
+        <item>drawable 11</item>
+        <item>drawable 12</item>
+        <item>drawable 13</item>
+        <item>drawable 14</item>
+        <item>drawable 15</item>
+        <item>drawable 16</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="item_selected_msg">person selected</string>
+    <string name="new_person_add">Add new person</string>
+    <string name="call_question">Do you want to call?</string>
+    <string name="dialog_confirm">Yes</string>
+    <string name="dialog_cancel">No</string>
+    <string name="call_dialog_tag">call dialog tag</string>
+</resources>
