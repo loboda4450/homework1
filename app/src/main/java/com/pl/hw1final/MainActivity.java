@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements PersonFragment.on
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
             ((PersonFragment) getSupportFragmentManager().findFragmentById(R.id.personFragment)).notifyDataChange();
-
+            setContentView(R.layout.activity_main);
         }
     }
 
