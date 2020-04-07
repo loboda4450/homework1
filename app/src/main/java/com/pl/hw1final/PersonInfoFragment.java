@@ -54,8 +54,8 @@ public class PersonInfoFragment extends Fragment {
         String name = person.name + " " + person.surname;
 
         taskInfoName.setText(name);
-        taskInfoBirthday.setText(person.birthday);
-        taskInfoPhone.setText(person.phone);
+        taskInfoBirthday.setText("Birthday: " + person.birthday);
+        taskInfoPhone.setText("Phonenumber: " + person.phone);
         if (person.picPath.contains("drawable")) {
             Drawable taskDrawable;
             switch (person.picPath) {

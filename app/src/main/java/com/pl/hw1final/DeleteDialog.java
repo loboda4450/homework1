@@ -12,7 +12,8 @@ import androidx.fragment.app.DialogFragment;
 import org.jetbrains.annotations.NotNull;
 
 public class DeleteDialog extends DialogFragment {
-    private OnDeleteDialogInteractionListener mListener; //here
+
+    private OnDeleteDialogInteractionListener mListener;
 
     public DeleteDialog(){
 

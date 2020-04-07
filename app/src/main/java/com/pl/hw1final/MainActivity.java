@@ -25,25 +25,25 @@ public class MainActivity extends AppCompatActivity implements PersonFragment.on
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), getString(R.string.new_person_add), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), AddPerson.class);
-                startActivity(intent);
+                startAddPersonActivity();
             }
         });
     }
 
-//    private void startAddPersonActivity(Context context){
-//
-//    }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if(resultCode == RESULT_OK){
-//            ((PersonFragment) getSupportFragmentManager().findFragmentById(R.id.personFragment)).notifyDataChange();
-//            setContentView(R.layout.activity_main);
-//        }
-//    }
+    private void startAddPersonActivity(){
+        Intent intent = new Intent(this, AddPerson.class);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            ((PersonFragment) getSupportFragmentManager().findFragmentById(R.id.personFragment)).notifyDataChange();
+            setContentView(R.layout.activity_main);
+        }
+    }
+
 
     private void startPersonInfoActivity(PersonListContent.Person person, int position){
         Intent intent = new Intent(this, PersonInfoActivity.class);
@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements PersonFragment.on
     @Override
     public void onImageButtonClickInteraction(int position){
         showDeleteDialog();
+        currentItemPosition = position;
     }
 
     private void showCallDialog(){

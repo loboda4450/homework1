@@ -19,20 +19,20 @@ import android.widget.TextView;
 import org.jetbrains.annotations.NotNull;
 
 public class CallDialog extends DialogFragment {
+
     private OnCallDialogInteractionListener mListener;
+
+    public CallDialog(){
+    }
 
     static CallDialog newInstance(){
         return new CallDialog();
     }
 
-    private void mListenerSetter(Context context){
-        mListener = (OnCallDialogInteractionListener) context;
-    }
 
     @NotNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState){
-        mListenerSetter(getContext());
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(getString(R.string.call_question));
         builder.setPositiveButton(getString(R.string.dialog_confirm), new DialogInterface.OnClickListener() {
@@ -48,6 +48,23 @@ public class CallDialog extends DialogFragment {
             }
         });
         return builder.create();
+    }
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        if (context instanceof OnCallDialogInteractionListener) {
+            mListener = (OnCallDialogInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnDeleteDialogInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
     public interface OnCallDialogInteractionListener{

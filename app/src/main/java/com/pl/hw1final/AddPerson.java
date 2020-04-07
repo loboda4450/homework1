@@ -78,5 +78,8 @@ public class AddPerson extends AppCompatActivity {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         assert imm != null;
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+        setResult(RESULT_OK);
+        finish();
     }
 }
