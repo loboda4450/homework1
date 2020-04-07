@@ -25,12 +25,12 @@ public class MainActivity extends AppCompatActivity implements PersonFragment.on
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startAddPersonActivity();
+                startAddPersonActivity(v);
             }
         });
     }
 
-    private void startAddPersonActivity(){
+    public void startAddPersonActivity(View view){
         Intent intent = new Intent(this, AddPerson.class);
         startActivityForResult(intent, 1);
     }
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements PersonFragment.on
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
-            ((PersonFragment) getSupportFragmentManager().findFragmentById(R.id.personFragment)).notifyDataChange();
+            ((PersonFragment) Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.personFragment))).notifyDataChange();
             setContentView(R.layout.activity_main);
         }
     }
@@ -108,4 +108,6 @@ public class MainActivity extends AppCompatActivity implements PersonFragment.on
                     }).show();
         }
     }
+
+
 }
