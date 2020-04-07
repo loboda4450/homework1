@@ -1,15 +1,13 @@
 package com.pl.hw1final;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.pl.hw1final.persons.PersonListContent;
 
 import java.util.Objects;
@@ -23,29 +21,29 @@ public class MainActivity extends AppCompatActivity implements PersonFragment.on
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startAddPersonActivity(getApplicationContext());
+                Toast.makeText(getApplicationContext(), getString(R.string.new_person_add), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), AddPerson.class);
+                startActivity(intent);
             }
         });
     }
 
-    private void startAddPersonActivity(Context context){
-        Toast.makeText(context, getString(R.string.new_person_add), Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, AddPerson.class);
-        startActivityForResult(intent, 1);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
-            ((PersonFragment) getSupportFragmentManager().findFragmentById(R.id.personFragment)).notifyDataChange();
-            setContentView(R.layout.activity_main);
-        }
-    }
+//    private void startAddPersonActivity(Context context){
+//
+//    }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if(resultCode == RESULT_OK){
+//            ((PersonFragment) getSupportFragmentManager().findFragmentById(R.id.personFragment)).notifyDataChange();
+//            setContentView(R.layout.activity_main);
+//        }
+//    }
 
     private void startPersonInfoActivity(PersonListContent.Person person, int position){
         Intent intent = new Intent(this, PersonInfoActivity.class);
@@ -61,13 +59,11 @@ public class MainActivity extends AppCompatActivity implements PersonFragment.on
 
     @Override
     public void onListFragmentLongClickInteraction(int position) {
-        Toast.makeText(this, "It works :3", Toast.LENGTH_SHORT).show();
         showCallDialog();
     }
 
     @Override
     public void onImageButtonClickInteraction(int position){
-        Toast.makeText(this, "Delete works .-.", Toast.LENGTH_SHORT).show();
         showDeleteDialog();
     }
 
@@ -81,24 +77,34 @@ public class MainActivity extends AppCompatActivity implements PersonFragment.on
 
     @Override
     public void OnDialogPositiveClick(CallDialog dialog) {
-
+        Toast.makeText(this, "Calling", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void OnDialogNegativeClick(CallDialog dialog) {
-
+        Toast.makeText(this, "Call canceled", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void OnDialogPositiveClick(DeleteDialog dialog) {
         if (currentItemPosition != -1 && currentItemPosition < PersonListContent.ITEMS.size()) {
             PersonListContent.removeItem(currentItemPosition);
-            ((PersonFragment) getSupportFragmentManager().findFragmentById(R.id.personFragment)).notifyDataChange();
+            ((PersonFragment) Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.personFragment))).notifyDataChange();
         }
     }
 
     @Override
     public void OnDialogNegativeClick(DeleteDialog dialog) {
+        View v = findViewById(R.id.delete_button);
 
+        if(v != null){
+            Snackbar.make(v, getString(R.string.delete_cancel_msg), Snackbar.LENGTH_SHORT)
+                    .setAction(getString(R.string.retry_msg), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            showDeleteDialog();
+                        }
+                    }).show();
+        }
     }
 }

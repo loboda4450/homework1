@@ -39,4 +39,6 @@
     <string name="call_dialog_tag">call dialog tag</string>
     <string name="delete_question">Delete this contact?</string>
     <string name="delete_dialog_tag">delete dialog tag</string>
+    <string name="delete_cancel_msg">canceled</string>
+    <string name="retry_msg">retry</string>
 </resources>
