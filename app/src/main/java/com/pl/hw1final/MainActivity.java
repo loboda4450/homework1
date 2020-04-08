@@ -31,11 +31,9 @@ public class MainActivity extends AppCompatActivity implements PersonFragment.on
         });
     }
 
-    private void displayPersonInFragment(PersonListContent.Person person){
+    private void displayPersonInFragment(int position){
         PersonInfoFragment personInfoFragment = ((PersonInfoFragment) getSupportFragmentManager().findFragmentById(R.id.personInfoFragment));
-        if (person == null){
-            person = PersonListContent.ITEMS.get(0);
-        }
+        PersonListContent.Person person = PersonListContent.getItem(position);
 
         if(personInfoFragment != null){
             personInfoFragment.displayPerson(person);
@@ -65,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements PersonFragment.on
     @Override
     public void onListFragmentClickInteraction(PersonListContent.Person person, int position) {
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            displayPersonInFragment(person);
+            displayPersonInFragment(position);
         } else {
             Toast.makeText(this, getString(R.string.item_selected_msg), Toast.LENGTH_SHORT).show();
             startPersonInfoActivity(person, position);

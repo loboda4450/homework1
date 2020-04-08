@@ -31,6 +31,11 @@ public class PersonListContent {
         ITEM_MAP.remove(itemId);
     }
 
+    public static Person getItem(int position){
+        if (position >= ITEMS.size()) throw new AssertionError();
+        return ITEMS.get(position);
+    }
+
     private static Person createPerson(int position) {
         return new Person(String.valueOf(position),
                 "Adam",
