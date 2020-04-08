@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">hw1final</string>
-    <string name="add_person">ADD</string>
+    <string name="add_person">CHOOSE UR FIGHTER</string>
     <string name="person_surname">surname</string>
     <string name="person_name">name</string>
     <string name="person_birthday">birthday</string>
