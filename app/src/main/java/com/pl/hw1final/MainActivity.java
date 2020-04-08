@@ -2,6 +2,7 @@ package com.pl.hw1final;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -30,6 +31,13 @@ public class MainActivity extends AppCompatActivity implements PersonFragment.on
         });
     }
 
+    private void displayPersonInFragment(PersonListContent.Person person){
+        PersonInfoFragment personInfoFragment = ((PersonInfoFragment) getSupportFragmentManager().findFragmentById(R.id.personInfoFragment));
+        if(personInfoFragment != null){
+            personInfoFragment.displayPerson(person);
+        }
+    }
+
     public void startAddPersonActivity(View view){
         Intent intent = new Intent(this, AddPerson.class);
         startActivityForResult(intent, 1);
@@ -52,8 +60,12 @@ public class MainActivity extends AppCompatActivity implements PersonFragment.on
 
     @Override
     public void onListFragmentClickInteraction(PersonListContent.Person person, int position) {
-        Toast.makeText(this, getString(R.string.item_selected_msg), Toast.LENGTH_SHORT).show();
-        startPersonInfoActivity(person, position);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            displayPersonInFragment(person);
+        } else {
+            Toast.makeText(this, getString(R.string.item_selected_msg), Toast.LENGTH_SHORT).show();
+            startPersonInfoActivity(person, position);
+        }
     }
 
     @Override
