@@ -33,6 +33,10 @@ public class MainActivity extends AppCompatActivity implements PersonFragment.on
 
     private void displayPersonInFragment(PersonListContent.Person person){
         PersonInfoFragment personInfoFragment = ((PersonInfoFragment) getSupportFragmentManager().findFragmentById(R.id.personInfoFragment));
+        if (person == null){
+            person = PersonListContent.ITEMS.get(0);
+        }
+
         if(personInfoFragment != null){
             personInfoFragment.displayPerson(person);
         }
