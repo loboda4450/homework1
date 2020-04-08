@@ -21,6 +21,14 @@ public class MainActivity extends AppCompatActivity implements PersonFragment.on
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        try {
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                PersonInfoFragment personInfoFragment = ((PersonInfoFragment) getSupportFragmentManager().findFragmentById(R.id.displayPersonInfoFragment));
+                personInfoFragment.getView().setVisibility(View.GONE);
+            }
+        } catch (Exception e){
+            Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
+        }
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -31,10 +39,8 @@ public class MainActivity extends AppCompatActivity implements PersonFragment.on
         });
     }
 
-    private void displayPersonInFragment(int position){
-        PersonInfoFragment personInfoFragment = ((PersonInfoFragment) getSupportFragmentManager().findFragmentById(R.id.personInfoFragment));
-        PersonListContent.Person person = PersonListContent.getItem(position);
-
+    private void displayPersonInFragment(PersonListContent.Person person){
+        PersonInfoFragment personInfoFragment = ((PersonInfoFragment) getSupportFragmentManager().findFragmentById(R.id.displayPersonInfoFragment));
         if(personInfoFragment != null){
             personInfoFragment.displayPerson(person);
         }
@@ -63,7 +69,9 @@ public class MainActivity extends AppCompatActivity implements PersonFragment.on
     @Override
     public void onListFragmentClickInteraction(PersonListContent.Person person, int position) {
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            displayPersonInFragment(position);
+            PersonInfoFragment personInfoFragment = (PersonInfoFragment) getSupportFragmentManager().findFragmentById(R.id.displayPersonInfoFragment);
+            personInfoFragment.getView().setVisibility(View.VISIBLE);
+            displayPersonInFragment(person);
         } else {
             Toast.makeText(this, getString(R.string.item_selected_msg), Toast.LENGTH_SHORT).show();
             startPersonInfoActivity(person, position);
